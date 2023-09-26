@@ -1,0 +1,18 @@
+mvn clean package
+
+Create a storage bucket (appl-bucket) and upload jar with dependencies.
+
+Create a Compute Engine -> VM instance, allow HTTP traffic.
+
+SSH to VM:
+Install JDK:
+sudo apt-get update
+sudo apt-get -y --force-yes install openjdk17-jdk
+
+Copy JAR to VM:
+gsutil cp gs://appl-bucket/*jar .
+
+Run the app on port 80:
+sudo jar -jar ..jar 80
+
+Go to app via external IP from browser..
