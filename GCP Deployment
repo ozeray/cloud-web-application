@@ -7,7 +7,7 @@ Create a Compute Engine -> VM instance, allow HTTP traffic.
 SSH to VM:
 Install JDK:
 sudo apt-get update
-sudo apt-get -y --force-yes install openjdk17-jdk
+sudo apt-get -y --force-yes install openjdk-17-jdk
 
 Copy JAR to VM:
 gsutil cp gs://appl-bucket/*jar .
@@ -16,3 +16,15 @@ Run the app on port 80:
 sudo jar -jar ..jar 80
 
 Go to app via external IP from browser..
+
+To simplify VM creation with instance templates:
+Create an instance template, in Management AUTOMATION text-field:
+#! /bin/bash
+apt-get update
+apt-get -y --force-yes install openjdk-17-jdk
+gsutil cp gs://appl-bucket/*jar .
+java -jar cloud-web-application-1.0-SNAPSHOT-jar-with-dependencies.jar 80
+
+Then create a VM on the template menu.. Done.
+
+Create instance group using this template to automate creating, autoscaling, monitoring, auto-healing, etc. of multiple VMs at the same time.
